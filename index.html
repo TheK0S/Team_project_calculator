@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="styleheet" href="style.css">
+    <title>Calculator</title>    
+</head>
+<body>
+    <form>
+        <input id="calculator-input" class="calculator-input" type="text" placeholder="Введите выражение">
+        <div class="calculator-container">
+            <button id="button1" class="calculator-button" data-index="1">1</button>
+            <button id="button2" class="calculator-button" data-index="2">2</button>
+            <button id="button3" class="calculator-button" data-index="3">3</button>
+            <button id="buttonPlus" class="calculator-button operator" data-index="+">+</button>
+            <button id="button4" class="calculator-button" data-index="4">4</button>
+            <button id="button5" class="calculator-button" data-index="5">5</button>
+            <button id="button6" class="calculator-button" data-index="6">6</button>
+            <button id="buttonMinus" class="calculator-button operator" data-index="-">-</button>
+            <button id="button7" class="calculator-button" data-index="7">7</button>
+            <button id="button8" class="calculator-button" data-index="8">8</button>
+            <button id="button9" class="calculator-button" data-index="9">9</button>
+            <button id="buttonMultiply" class="calculator-button operator" data-index="*">*</button>
+            <button id="button0" class="calculator-button" data-index="0">0</button>
+            <button id="buttonDivide" class="calculator-button operator" data-index="/">/</button>
+            <button id="buttonEquals" class="calculator-button operator" data-index="=">=</button>
+            <button id="buttonClear" class="calculator-button" data-index="C">C</button>
+            <button id="buttonDelete" class="calculator-button" data-index="&lt;">&lt;</button> <!-- Кнопка удаления -->
+            <button id="buttonMemory" class="calculator-button" data-index="M">M</button> <!-- Кнопка для управления памятью -->
+        </div>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>
