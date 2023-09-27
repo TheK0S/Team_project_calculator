@@ -1,14 +1,16 @@
-body{
-    background-color: black;            
+body {
+    background-color: black;
 }
 
 .calculator-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 5px;
     width: 220px;
     margin: 0 auto;
 }
+
 
 .calculator-button {
     background-color: #E4E4E4;
@@ -21,14 +23,22 @@ body{
     border-radius: 50px;
 }
 
-.calculator-button.operator {
-    background-color: #FF9900; 
-    color: white;
+    .calculator-button.operator {
+        background-color: #FF9900;
+        color: white;
+    }
+
+.calculator-output {
+    margin-left: 700px;
+    width: 200px;
+    margin-right: auto;
+    background-color: gray;
 }
+
 .calculator-input {
     grid-column: span 4;
-    background-color: #F2F2F2; 
-    color: #000; 
+    background-color: #F2F2F2;
+    color: #000;
     font-size: 18px;
     border: none;
     border-radius: 10px;
@@ -36,26 +46,25 @@ body{
     margin: 0 auto;
     display: block;
 }
-
-
-
-
-
-
-
-
+/* Тут мы расширяем кнопку 0*/
+#button0.calculator-button {
+    width: 100px;
+}
 
 
 @media (max-width: 768px) {
     .calculator-container {
-        width: 90%;
-        grid-template-columns: repeat(3, 1fr); 
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        max-width: 90%;
     }
 
     .calculator-button {
         width: 40px;
-        height: 40px; 
-        font-size: 14px; 
+        height: 40px;
+        font-size: 14px;
+        min-width: 40px; /* Добавляем минимальную ширину */
     }
 
     .calculator-input {
@@ -65,13 +74,29 @@ body{
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .calculator-container {
-        width: 80%; 
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        max-width: 80%;
+    }
+
+    .calculator-button {
+        min-width: 50px; /* Добавляем минимальную ширину */
     }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) {
+    .calculator-container {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
 }
 
 @media (min-width: 1441px) and (max-width: 1980px) {
+    .calculator-container {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
 }
-
