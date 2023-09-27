@@ -1,102 +1,63 @@
-body {
-    background-color: black;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.calculator-container {
+body {
+    background-color: #000;
+}
+
+#calculator-container {    
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 5px;
-    width: 220px;
-    margin: 0 auto;
+    flex-direction: column;
+    text-align: center;
 }
 
 
 .calculator-button {
-    background-color: #E4E4E4;
+    background-color: #4d4d4d;
     color: #FF9900;
+    box-shadow: inset 0 0 8px rgb(129, 129, 129);
     width: 50px;
     height: 50px;
     border: none;
     cursor: pointer;
     font-size: 18px;
     border-radius: 50px;
+    margin: 3px;
 }
 
-    .calculator-button.operator {
-        background-color: #FF9900;
-        color: white;
-    }
-
-.calculator-output {
-    margin-left: 700px;
-    width: 200px;
-    margin-right: auto;
-    background-color: gray;
+#button0{
+    width: 106px;
+    margin: 0 6px 0 6px;
 }
 
-.calculator-input {
-    grid-column: span 4;
-    background-color: #F2F2F2;
-    color: #000;
-    font-size: 18px;
+.calculator-button.operator {
+    background-color: #FF9900;
+    box-shadow: inset 0 0 8px #ffcd81;
+    color: white;
+}
+
+#calculator-input {
+    background-color: #4d4d4d;
+    width: 230px;
+    box-shadow: inset 0 0 8px rgb(129, 129, 129);
+    color: #d6d5d5;
+    font-size: 20px;
+    text-align: right;
     border: none;
     border-radius: 10px;
     padding: 5px;
-    margin: 0 auto;
+    margin: 10px auto;
     display: block;
 }
-/* Тут мы расширяем кнопку 0*/
-#button0.calculator-button {
-    width: 100px;
-}
 
-
-@media (max-width: 768px) {
-    .calculator-container {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        max-width: 90%;
-    }
-
-    .calculator-button {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-        min-width: 40px; /* Добавляем минимальную ширину */
-    }
-
-    .calculator-input {
-        font-size: 16px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .calculator-container {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        max-width: 80%;
-    }
-
-    .calculator-button {
-        min-width: 50px; /* Добавляем минимальную ширину */
-    }
-}
-
-@media (min-width: 1025px) and (max-width: 1440px) {
-    .calculator-container {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-    }
-}
-
-@media (min-width: 1441px) and (max-width: 1980px) {
-    .calculator-container {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-    }
+#calculator-output{
+    margin: 10px auto 0;
+    width: 230px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #969696;
+    box-shadow: inset 0 0 15px rgb(105, 105, 105);
 }
