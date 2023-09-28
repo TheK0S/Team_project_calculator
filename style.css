@@ -6,19 +6,26 @@
 
 body {
     background-color: #000;
+    min-width: 320px;
 }
 
-#calculator-container {    
+#calculator-container {
+    height: 385px;
     display: flex;
     flex-direction: column;
+    justify-content: end;
     text-align: center;
+    max-width: 250px;
+    margin: 10px auto;
+    box-shadow: 0 0 10px rgb(129, 129, 129);
+    border-radius: 25px;
 }
 
 
 .calculator-button {
     background-color: #4d4d4d;
     color: #FF9900;
-    box-shadow: inset 0 0 8px rgb(129, 129, 129);
+    box-shadow: inset 0 0 3px rgb(129, 129, 129);
     width: 50px;
     height: 50px;
     border: none;
@@ -26,38 +33,63 @@ body {
     font-size: 18px;
     border-radius: 50px;
     margin: 3px;
+    transition: all 0.3s;
+}
+
+.calculator-button:hover{
+    box-shadow: inset 0 0 10px rgb(129, 129, 129);
+}
+
+.calculator-button:active{
+    transform: scale(1.2);
+    background-color: #000;
 }
 
 #button0{
     width: 106px;
-    margin: 0 6px 0 6px;
+    margin: 0 6px 10px 6px;
 }
 
-.calculator-button.operator {
+.operator {
     background-color: #FF9900;
     box-shadow: inset 0 0 8px #ffcd81;
     color: white;
 }
 
+.operator:hover{
+    box-shadow: inset 0 0 10px rgb(255, 255, 255);
+}
+
 #calculator-input {
-    background-color: #4d4d4d;
     width: 230px;
+    display: block;
+    background-color: #4d4d4d;    
     box-shadow: inset 0 0 8px rgb(129, 129, 129);
     color: #d6d5d5;
-    font-size: 20px;
+    font-size: 1.6em;
     text-align: right;
     border: none;
     border-radius: 10px;
     padding: 5px;
-    margin: 10px auto;
-    display: block;
+    margin: 10px auto;    
+    font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 
 #calculator-output{
     margin: 10px auto 0;
     width: 230px;
+    font-size: 1.3em;
     border-radius: 10px;
     background-color: #000;
     color: #969696;
-    box-shadow: inset 0 0 15px rgb(105, 105, 105);
+    box-shadow: inset 0 0 15px rgb(49, 49, 49);
+}
+
+.bg-gray{
+    background-color: #969696;
+    color: white;
+}
+
+.bg-gray:hover{
+    box-shadow: inset 0 0 10px rgb(204, 204, 204);
 }
