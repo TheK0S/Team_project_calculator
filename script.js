@@ -1,49 +1,49 @@
-// Получаем ссылки на элементы DOM
+// Get references to DOM elements
 const inputField = document.getElementById("calculator-input");
 const calculator = document.getElementById("calculator-container");
 const memory = document.getElementById("calculator-output");
 
-// Определяем массивы операторов и чисел для проверки ввода
+// Define arrays of operators and numbers for input validation
 const operators = ['*', '/', '+', '-', '%'];
 const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.'];
 
-// Флаги для проверки состояния калькулятора
-var isOperatorExits = false; // Проверка на наличие оператора
-var isCommaExits = false;   // Проверка на наличие запятой
+// Flags to check the state of the calculator
+var isOperatorExits = false; // Check for the presence of an operator
+var isCommaExits = false;    // Check for the presence of a comma
 
-// Переменные для хранения текущего состояния калькулятора
+// Variables to store the current state of the calculator
 var currentOperation;
 var currentResult = 0;
 var previousEntered = 0;
 
-// Обработчик событий для кнопок калькулятора
+// Event handler for calculator buttons
 calculator.addEventListener('click', function (event) {
-    if (event.target.tagName !== 'BUTTON') return; // Если элемент не кнопка, выходим
+    if (event.target.tagName !== 'BUTTON') return; // Exit if the element is not a button
     event.preventDefault();
 
-    const symbol = event.target.getAttribute('data-index'); // Получаем символ из атрибута кнопки
+    const symbol = event.target.getAttribute('data-index'); // Get the symbol from the button's attribute
     console.log(symbol);
-    checkSymbol(symbol); // Проверяем введенный символ
+    checkSymbol(symbol); // Validate the entered symbol
 });
 
-// Обработчик событий для клавиатуры
+// Event handler for keyboard input
 document.addEventListener('keydown', function (event) {
     event.preventDefault();
     var buttonSymbol = event.key;
 
-    // Регулярное выражение для проверки допустимых символов
+    // Regular expression to validate allowable characters
     var regex = /^[0-9+\-*/%=.C<]$/;
 
-    // Замена некоторых клавиш на соответствующие символы
+    // Replace some keys with corresponding symbols
     if (buttonSymbol === 'Enter') buttonSymbol = "=";
     if (buttonSymbol === 'Delete') buttonSymbol = "C";
     if (buttonSymbol === 'Backspace') buttonSymbol = "<";
 
-    // Если символ соответствует регулярному выражению, проверяем его
+    // If the symbol matches the regular expression, validate it
     if (regex.test(buttonSymbol)) checkSymbol(buttonSymbol);
 });
 
-// Функция для проверки введенного символа и выполнения соответствующего действия
+// Function to validate the entered symbol and perform the corresponding action
 function checkSymbol(symbol) {
     switch (symbol) {
         case 'C': clearField(); break;
@@ -53,60 +53,61 @@ function checkSymbol(symbol) {
         case ',': inputSymbol(symbol); break;
     }
 
-    operatorCheck(symbol); // Проверка на оператор
-    numberCheck(symbol);   // Проверка на число
+    operatorCheck(symbol); // Check for operator
+    numberCheck(symbol);   // Check for number
 }
 
-// Функция для проверки операторов
+// Function to validate operators
 function operatorCheck(symbol) {
-    // Если символ не оператор или последний символ в поле ввода - оператор, выходим
+    // Exit if the symbol is not an operator or the last character in the input field is an operator
     if (!operators.includes(symbol) || operators.includes(inputField.value[inputField.value.length - 1])) return;
 
-    // Если поле ввода пустое, выходим
+    // Exit if the input field is empty
     if (inputField.value.length === 0) return;
 
-    // Если оператора нет, устанавливаем текущий результат
+    // If there is no operator, set the current result
     if (!isOperatorExits) {
         currentResult = parseFloat(inputField.value);
     }
 
-    // Если оператор существует, выполняем операцию
+    // If an operator exists, perform the operation
     if (isOperatorExits) {
         currentResult = checkOperations();
         isCommaExits = false;
     }
 
-    previousEntered = 0; // Сброс предыдущего введенного значения
+    previousEntered = 0; // Reset the previously entered value
 
-    currentOperation = symbol; // Устанавливаем текущую операцию
-    isOperatorExits = true;   // Устанавливаем флаг наличия оператора
-    inputSymbol(symbol);      // Добавляем символ в поле ввода
+    currentOperation = symbol; // Set the current operation
+    isOperatorExits = true;    // Set the flag for the presence of an operator
+    inputSymbol(symbol);       // Add the symbol to the input field
 }
 
-// Функция для проверки чисел
+// Function to validate numbers
 function numberCheck(symbol) {
-    if (!numbers.includes(symbol)) return; // Если символ не число, выходим
+    if (!numbers.includes(symbol)) return; // If the symbol is not a number, exit
 
-    // Если поле ввода пустое и символ - точка, и предыдущий введенный символ содержит точку, выходим
-    if (inputField.value === "" && symbol === '.' && previousEntered.toString().includes('.')) return;
+    if (symbol === '.' && inputField.value.length === 0) inputField.value += 0;
+    // If the input field is empty and the symbol is a dot, or the previous symbol contains a dot, exit
+    if (symbol === '.' && (operators.includes(inputField.value[inputField.value.length - 1]) || inputField.value[inputField.value.length - 1] === ".")) return;
 
-    // Если оператор существует, добавляем символ к предыдущему введенному значению
+    // If an operator exists, add the symbol to the previous entered value
     if (isOperatorExits) {
         previousEntered += symbol;
         let tempResult = 0;
 
-        tempResult = checkOperations(); // Выполняем операцию
+        tempResult = checkOperations(); // Perform the operation
 
-        memory.innerHTML = tempResult.toLocaleString('en-US'); // Отображаем результат в памяти
+        memory.innerHTML = tempResult.toLocaleString('en-US'); // Display the result in memory
 
-        inputSymbol(symbol); // Добавляем символ в поле ввода
+        inputSymbol(symbol); // Add the symbol to the input field
     } else {
-        inputField.value += symbol; // Добавляем символ в поле ввода
-        previousEntered = 0;       // Сброс предыдущего введенного значения
+        inputField.value += symbol; // Add the symbol to the input field
+        previousEntered = 0;        // Reset the previously entered value
     }
 }
 
-// Функция для выполнения математических операций
+// Function to perform mathematical operations
 function checkOperations() {
     switch (currentOperation) {
         case '+': return currentResult + parseFloat(previousEntered);
@@ -121,56 +122,55 @@ function checkOperations() {
     }
 }
 
-// Функция для отображения результата
+// Function to display the result
 function result() {
-    var exp = complexExpresion(inputField.value); // Вычисляем выражение
+    var exp = complexExpression(inputField.value); // Evaluate the expression
 
-    memory.innerHTML = exp; // Отображаем результат в памяти
-    inputField.value = exp; // Отображаем результат в поле ввода
+    memory.innerHTML = exp; // Display the result in memory
+    inputField.value = exp; // Display the result in the input field
 
-    currentOperation = "";  // Сброс текущей операции
-    isOperatorExits = false; // Сброс флага наличия оператора
-    currentResult = inputField.value; // Устанавливаем текущий результат
-    previousEntered = 0; // Сброс предыдущего введенного значения
+    currentOperation = "";  // Reset the current operation
+    isOperatorExits = false; // Reset the operator presence flag
+    currentResult = inputField.value; // Set the current result
+    previousEntered = 0; // Reset the previously entered value
 }
 
-// Функция для вычисления сложного выражения
-function complexExpresion(expresion) {
-    return Function('"use strict";return (' + expresion + ')')()
+// Function to evaluate a complex expression
+function complexExpression(expression) {
+    return Function('"use strict";return (' + expression + ')')()
 }
 
-// Функция для удаления последнего символа
+// Function to remove the last character
 function removeLastChar() {
     var lastChar = inputField.value[inputField.value.length - 1];
 
-    // Если последний символ - оператор
+    // If the last character is an operator
     if (operators.includes(lastChar)) {
-        isOperatorExits = false; // Сброс флага наличия оператора
-        currentOperation = "";   // Сброс текущей операции
+        isOperatorExits = false; // Reset the operator presence flag
+        currentOperation = "";   // Reset the current operation
     }
 
-    // Если последний символ - число или точка
+    // If the last character is a number or a dot
     if (numbers.includes(lastChar)) {
-        // Обновляем previousEntered, удаляя последний символ
+        // Update previousEntered by removing the last character
         previousEntered = previousEntered.toString().slice(0, -1);
     }
 
-    var sliced = inputField.value.slice(0, inputField.value.length - 1); // Удаляем последний символ
-    inputField.value = sliced; // Обновляем поле ввода
+    var sliced = inputField.value.slice(0, inputField.value.length - 1); // Remove the last character
+    inputField.value = sliced; // Update the input field
 }
 
-
-// Функция для очистки поля ввода и памяти
+// Function to clear the input field and memory
 function clearField() {
-    inputField.value = ""; // Очищаем поле ввода
-    memory.innerHTML = ""; // Очищаем память
-    currentOperation = ""; // Сброс текущей операции
-    currentResult = 0;     // Сброс текущего результата
-    isOperatorExits = false; // Сброс флага наличия оператора
-    previousEntered = 0;   // Сброс предыдущего введенного значения
+    inputField.value = ""; // Clear the input field
+    memory.innerHTML = ""; // Clear the memory
+    currentOperation = ""; // Reset the current operation
+    currentResult = 0;     // Reset the current result
+    isOperatorExits = false; // Reset the operator presence flag
+    previousEntered = 0;   // Reset the previously entered value
 }
 
-// Функция для добавления символа в поле ввода
+// Function to add a symbol to the input field
 function inputSymbol(symbol) {
-    inputField.value += symbol
+    inputField.value += symbol;
 }
